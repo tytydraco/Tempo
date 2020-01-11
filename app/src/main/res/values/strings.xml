@@ -3,23 +3,13 @@
 
     <string name="help">Help</string>
 
-    <string name="slow_open_close">Slow Open &amp; Close</string>
-    <string name="slow_dialogs">Slow Dialogs</string>
-    <string name="slow_everything">Slow Everything</string>
-
-    <string name="relaxed_open_close">Relaxed Open &amp; Close</string>
-    <string name="relaxed_dialogs">Relaxed Dialogs</string>
-    <string name="relaxed_everything">Relaxed Everything</string>
-
-    <string name="default_everything">Default</string>
-
-    <string name="snappy_open_close">Snappy Open &amp; Close</string>
-    <string name="snappy_dialogs">Snappy Dialogs</string>
-    <string name="snappy_everything">Snappy Everything</string>
-
-    <string name="instant_open_close">Instant Open &amp; Close</string>
-    <string name="instant_dialogs">Instant Dialogs</string>
-    <string name="instant_everything">Instant Everything</string>
+    <string name="ancient">Ancient</string>
+    <string name="slow">Slow</string>
+    <string name="relaxed">Relaxed</string>
+    <string name="default_speed">Default</string>
+    <string name="snappy">Snappy</string>
+    <string name="fast">Fast</string>
+    <string name="instant">Instant</string>
 
     <string name="adb_tutorial">
 "This app needs a special permission to set your device animation scales that can only be granted using a computer. This is a one time procedure.

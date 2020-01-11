@@ -20,61 +20,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var help: Button
 
-    private lateinit var slowOpenClose: Button
-    private lateinit var slowDialogs: Button
-    private lateinit var slowEverything: Button
-    private lateinit var relaxedOpenClose: Button
-    private lateinit var relaxedDialogs: Button
-    private lateinit var relaxedEverything: Button
-    private lateinit var defaultEverything: Button
-    private lateinit var snappyOpenClose: Button
-    private lateinit var snappyDialogs: Button
-    private lateinit var snappyEverything: Button
-    private lateinit var instantOpenClose: Button
-    private lateinit var instantDialogs: Button
-    private lateinit var instantEverything: Button
+    private lateinit var ancient: Button
+    private lateinit var slow: Button
+    private lateinit var relaxed: Button
+    private lateinit var default: Button
+    private lateinit var snappy: Button
+    private lateinit var fast: Button
+    private lateinit var instant: Button
 
     /* Window, Transition, Animator */
-    /* Pop-ups, App open, App switcher & app close */
     private val speedValueList = listOf(
-        listOf(1.0, 1.5, 1.5),    /* Slow Open & Close */
-        listOf(1.5, 1.0, 1.0),    /* Slow Dialogs */
-        listOf(1.5, 1.5, 1.5),    /* Slow Everything */
-
-        listOf(1.0, 1.2, 1.2),    /* Relaxed Open & Close */
-        listOf(1.2, 1.0, 1.0),    /* Relaxed Dialogs */
-        listOf(1.2, 1.2, 1.2),    /* Relaxed Everything */
-
-        listOf(1.0, 1.0, 1.0),    /* Default Everything */
-
-        listOf(1.0, 0.7, 0.7),    /* Snappy Open & Close */
-        listOf(0.5, 1.0, 1.0),    /* Snappy Dialogs */
-        listOf(0.5, 0.7, 0.7),    /* Snappy Everything */
-
-        listOf(1.0, 0.0, 0.0),    /* Instant Open & Close */
-        listOf(0.0, 1.0, 1.0),    /* Instant Dialogs */
-        listOf(0.0, 0.0, 0.0)     /* Instant Everything */
-    )
-
-    /* Speed that the button animation will scale by */
-    private val animSpeedValueList = listOf(
-        1.5,    /* Slow Open & Close */
-        1.5,    /* Slow Dialogs */
-        1.5,    /* Slow Everything */
-
-        1.2,    /* Relaxed Open & Close */
-        1.2,    /* Relaxed Dialogs */
-        1.2,    /* Relaxed Everything */
-
-        1.0,    /* Default Everything */
-
-        0.7,    /* Snappy Open & Close */
-        0.7,    /* Snappy Dialogs */
-        0.7,    /* Snappy Everything */
-
-        0.0,    /* Instant Open & Close */
-        0.0,    /* Instant Dialogs */
-        0.0     /* Instant Everything */
+        2.0,
+        1.5,
+        1.2,
+        1.0,
+        0.7,
+        0.5,
+        0.0
     )
 
     private lateinit var speedButtonList: List<Button>
@@ -91,23 +53,23 @@ class MainActivity : AppCompatActivity() {
         return Color.rgb(r.toInt(), g.toInt(), b.toInt())
     }
 
-    private fun setAnimationSpeed(scales: List<Double>) {
+    private fun setAnimationSpeed(scale: Double) {
         Settings.Global.putFloat(
             contentResolver,
             Settings.Global.WINDOW_ANIMATION_SCALE,
-            scales[0].toFloat()
+            scale.toFloat()
         )
 
         Settings.Global.putFloat(
             contentResolver,
             Settings.Global.TRANSITION_ANIMATION_SCALE,
-            scales[1].toFloat()
+            scale.toFloat()
         )
 
         Settings.Global.putFloat(
             contentResolver,
             Settings.Global.ANIMATOR_DURATION_SCALE,
-            scales[2].toFloat()
+            scale.toFloat()
         )
     }
 
@@ -134,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 /* Start animation if stopped playing or does not exist */
                 if (button.animation == null || button.animation.hasEnded()) {
                     val shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake)
-                    shakeAnim.scaleCurrentDuration(animSpeedValueList[i].toFloat())
+                    shakeAnim.scaleCurrentDuration(speedValueList[i].toFloat())
 
                     button.startAnimation(shakeAnim)
                 }
@@ -145,34 +107,22 @@ class MainActivity : AppCompatActivity() {
     private fun initializeUI() {
         help = findViewById(R.id.help)
 
-        slowOpenClose = findViewById(R.id.slow_open_close)
-        slowDialogs = findViewById(R.id.slow_dialogs)
-        slowEverything = findViewById(R.id.slow_everything)
-        relaxedOpenClose = findViewById(R.id.relaxed_open_close)
-        relaxedDialogs = findViewById(R.id.relaxed_dialogs)
-        relaxedEverything = findViewById(R.id.relaxed_everything)
-        defaultEverything = findViewById(R.id.default_everything)
-        snappyOpenClose = findViewById(R.id.snappy_open_close)
-        snappyDialogs = findViewById(R.id.snappy_dialogs)
-        snappyEverything = findViewById(R.id.snappy_everything)
-        instantOpenClose = findViewById(R.id.instant_open_close)
-        instantDialogs = findViewById(R.id.instant_dialogs)
-        instantEverything = findViewById(R.id.instant_everything)
+        ancient = findViewById(R.id.ancient)
+        slow = findViewById(R.id.slow)
+        relaxed = findViewById(R.id.relaxed)
+        default = findViewById(R.id.default_speed)
+        snappy = findViewById(R.id.snappy)
+        fast = findViewById(R.id.fast)
+        instant  = findViewById(R.id.instant)
 
         speedButtonList = listOf(
-            slowOpenClose,
-            slowDialogs,
-            slowEverything,
-            relaxedOpenClose,
-            relaxedDialogs,
-            relaxedEverything,
-            defaultEverything,
-            snappyOpenClose,
-            snappyDialogs,
-            snappyEverything,
-            instantOpenClose,
-            instantDialogs,
-            instantEverything
+            ancient,
+            slow,
+            relaxed,
+            default,
+            snappy,
+            fast,
+            instant
         )
 
         setupButtons()

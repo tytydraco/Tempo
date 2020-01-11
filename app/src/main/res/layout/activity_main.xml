@@ -24,92 +24,50 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/ButtonTheme"
-            android:id="@+id/slow_open_close"
-            android:text="@string/slow_open_close"
+            android:id="@+id/ancient"
+            android:text="@string/ancient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/ButtonTheme"
-            android:id="@+id/slow_dialogs"
-            android:text="@string/slow_dialogs"
+            android:id="@+id/slow"
+            android:text="@string/slow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/ButtonTheme"
-            android:id="@+id/slow_everything"
-            android:text="@string/slow_everything"
+            android:id="@+id/relaxed"
+            android:text="@string/relaxed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/ButtonTheme"
-            android:id="@+id/relaxed_open_close"
-            android:text="@string/relaxed_open_close"
+            android:id="@+id/default_speed"
+            android:text="@string/default_speed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/ButtonTheme"
-            android:id="@+id/relaxed_dialogs"
-            android:text="@string/relaxed_dialogs"
+            android:id="@+id/snappy"
+            android:text="@string/snappy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/ButtonTheme"
-            android:id="@+id/relaxed_everything"
-            android:text="@string/relaxed_everything"
+            android:id="@+id/fast"
+            android:text="@string/fast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/ButtonTheme"
-            android:id="@+id/default_everything"
-            android:text="@string/default_everything"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/ButtonTheme"
-            android:id="@+id/snappy_open_close"
-            android:text="@string/snappy_open_close"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/ButtonTheme"
-            android:id="@+id/snappy_dialogs"
-            android:text="@string/snappy_dialogs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/ButtonTheme"
-            android:id="@+id/snappy_everything"
-            android:text="@string/snappy_everything"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/ButtonTheme"
-            android:id="@+id/instant_open_close"
-            android:text="@string/instant_open_close"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/ButtonTheme"
-            android:id="@+id/instant_dialogs"
-            android:text="@string/instant_dialogs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/ButtonTheme"
-            android:id="@+id/instant_everything"
-            android:text="@string/instant_everything"
+            android:id="@+id/instant"
+            android:text="@string/instant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
