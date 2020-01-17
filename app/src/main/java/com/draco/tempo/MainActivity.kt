@@ -24,9 +24,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ancient: Button
     private lateinit var slow: Button
     private lateinit var relaxed: Button
+    private lateinit var loose: Button
     private lateinit var default: Button
+    private lateinit var hasty: Button
     private lateinit var snappy: Button
+    private lateinit var snappier: Button
     private lateinit var fast: Button
+    private lateinit var faster: Button
     private lateinit var instant: Button
 
     /* Window, Transition, Animator */
@@ -34,23 +38,27 @@ class MainActivity : AppCompatActivity() {
         2.0,
         1.5,
         1.2,
+        1.1,
         1.0,
+        0.9,
         0.7,
+        0.6,
         0.5,
+        0.2,
         0.0
     )
 
     private lateinit var speedButtonList: List<Button>
 
-    private val buttonColorMin = Color.parseColor("#039be5")
-    private val buttonColorMax = Color.parseColor("#f44336")
+    private val buttonColorMin = Color.parseColor("#7b1fa2")
+    private val buttonColorMax = Color.parseColor("#d32f2f")
 
     /* Merge two colors by a ratio [0,1] */
     private fun blendColors(color1: Int, color2: Int, ratio: Float): Int {
-        val inverseRation = 1f - ratio
-        val r = Color.red(color1) * ratio + Color.red(color2) * inverseRation
-        val g = Color.green(color1) * ratio + Color.green(color2) * inverseRation
-        val b = Color.blue(color1) * ratio + Color.blue(color2) * inverseRation
+        val inverseRatio = 1f - ratio
+        val r = Color.red(color1) * ratio + Color.red(color2) * inverseRatio
+        val g = Color.green(color1) * ratio + Color.green(color2) * inverseRatio
+        val b = Color.blue(color1) * ratio + Color.blue(color2) * inverseRatio
         return Color.rgb(r.toInt(), g.toInt(), b.toInt())
     }
 
@@ -84,6 +92,9 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
+        /* Help button isn't in the list, but just color it minimum */
+        help.setBackgroundColor(buttonColorMin)
+
         speedButtonList.forEachIndexed { i, button ->
             /* Blend colors based on their position in the array */
             val buttonRatio = 1 - ((i + 1).toFloat() / speedButtonList.size)
@@ -111,18 +122,26 @@ class MainActivity : AppCompatActivity() {
         ancient = findViewById(R.id.ancient)
         slow = findViewById(R.id.slow)
         relaxed = findViewById(R.id.relaxed)
+        loose = findViewById(R.id.loose)
         default = findViewById(R.id.default_speed)
+        hasty = findViewById(R.id.hasty)
         snappy = findViewById(R.id.snappy)
+        snappier = findViewById(R.id.snappier)
         fast = findViewById(R.id.fast)
+        faster = findViewById(R.id.faster)
         instant  = findViewById(R.id.instant)
 
         speedButtonList = listOf(
             ancient,
             slow,
             relaxed,
+            loose,
             default,
+            hasty,
             snappy,
+            snappier,
             fast,
+            faster,
             instant
         )
 
