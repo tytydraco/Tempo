@@ -17,7 +17,6 @@
             style="@style/ButtonTheme"
             android:id="@+id/help"
             app:backgroundTint="#78909c"
-            android:paddingVertical="20dp"
             android:text="@string/help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -45,8 +44,22 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/ButtonTheme"
+            android:id="@+id/loose"
+            android:text="@string/loose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/ButtonTheme"
             android:id="@+id/default_speed"
             android:text="@string/default_speed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/ButtonTheme"
+            android:id="@+id/hasty"
+            android:text="@string/hasty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -59,8 +72,22 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/ButtonTheme"
+            android:id="@+id/snappier"
+            android:text="@string/snappier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/ButtonTheme"
             android:id="@+id/fast"
             android:text="@string/fast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/ButtonTheme"
+            android:id="@+id/faster"
+            android:text="@string/faster"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

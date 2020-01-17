@@ -6,9 +6,13 @@
     <string name="ancient">Ancient</string>
     <string name="slow">Slow</string>
     <string name="relaxed">Relaxed</string>
+    <string name="loose">Loose</string>
     <string name="default_speed">Default</string>
+    <string name="hasty">Hasty</string>
     <string name="snappy">Snappy</string>
+    <string name="snappier">Snappier</string>
     <string name="fast">Fast</string>
+    <string name="faster">Faster</string>
     <string name="instant">Instant</string>
 
     <string name="adb_tutorial">
