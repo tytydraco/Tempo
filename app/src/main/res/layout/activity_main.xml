@@ -15,14 +15,6 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/ButtonTheme"
-            android:id="@+id/help"
-            app:backgroundTint="#78909c"
-            android:text="@string/help"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/ButtonTheme"
             android:id="@+id/ancient"
             android:text="@string/ancient"
             android:layout_width="match_parent"

@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     private val adbCommand = "pm grant ${BuildConfig.APPLICATION_ID} android.permission.WRITE_SECURE_SETTINGS"
 
-    private lateinit var help: Button
-
     private lateinit var ancient: Button
     private lateinit var slow: Button
     private lateinit var relaxed: Button
@@ -84,17 +82,6 @@ class MainActivity : AppCompatActivity() {
 
     /* Setup colors and actions */
     private fun setupButtons() {
-        help.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle("Help")
-                .setMessage(getString(R.string.help_message))
-                .setPositiveButton("Dismiss", null)
-                .show()
-        }
-
-        /* Help button isn't in the list, but just color it minimum */
-        help.setBackgroundColor(buttonColorMin)
-
         speedButtonList.forEachIndexed { i, button ->
             /* Blend colors based on their position in the array */
             val buttonRatio = 1 - ((i + 1).toFloat() / speedButtonList.size)
@@ -117,8 +104,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeUI() {
-        help = findViewById(R.id.help)
-
         ancient = findViewById(R.id.ancient)
         slow = findViewById(R.id.slow)
         relaxed = findViewById(R.id.relaxed)
