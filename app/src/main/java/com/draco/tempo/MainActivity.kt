@@ -80,59 +80,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    /* Setup colors and actions */
-    private fun setupButtons() {
-        speedButtonList.forEachIndexed { i, button ->
-            /* Blend colors based on their position in the array */
-            val buttonRatio = 1 - ((i + 1).toFloat() / speedButtonList.size)
-            val colorBlend = blendColors(buttonColorMin, buttonColorMax, buttonRatio)
-            button.setBackgroundColor(colorBlend)
-
-            /* Setup click action */
-            button.setOnClickListener {
-                setAnimationSpeed(speedValueList[i])
-
-                /* Start animation if stopped playing or does not exist */
-                if (button.animation == null || button.animation.hasEnded()) {
-                    val shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake)
-                    shakeAnim.scaleCurrentDuration(speedValueList[i].toFloat())
-
-                    button.startAnimation(shakeAnim)
-                }
-            }
-        }
-    }
-
-    private fun initializeUI() {
-        ancient = findViewById(R.id.ancient)
-        slow = findViewById(R.id.slow)
-        relaxed = findViewById(R.id.relaxed)
-        loose = findViewById(R.id.loose)
-        default = findViewById(R.id.default_speed)
-        hasty = findViewById(R.id.hasty)
-        snappy = findViewById(R.id.snappy)
-        snappier = findViewById(R.id.snappier)
-        fast = findViewById(R.id.fast)
-        faster = findViewById(R.id.faster)
-        instant  = findViewById(R.id.instant)
-
-        speedButtonList = listOf(
-            ancient,
-            slow,
-            relaxed,
-            loose,
-            default,
-            hasty,
-            snappy,
-            snappier,
-            fast,
-            faster,
-            instant
-        )
-
-        setupButtons()
-    }
-
     private fun hasPermissions(): Boolean {
         val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_SECURE_SETTINGS)
         return permissionCheck == PackageManager.PERMISSION_GRANTED
@@ -182,7 +129,54 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initializeUI()
+        ancient = findViewById(R.id.ancient)
+        slow = findViewById(R.id.slow)
+        relaxed = findViewById(R.id.relaxed)
+        loose = findViewById(R.id.loose)
+        default = findViewById(R.id.default_speed)
+        hasty = findViewById(R.id.hasty)
+        snappy = findViewById(R.id.snappy)
+        snappier = findViewById(R.id.snappier)
+        fast = findViewById(R.id.fast)
+        faster = findViewById(R.id.faster)
+        instant  = findViewById(R.id.instant)
+
+        speedButtonList = listOf(
+            ancient,
+            slow,
+            relaxed,
+            loose,
+            default,
+            hasty,
+            snappy,
+            snappier,
+            fast,
+            faster,
+            instant
+        )
+
+        /* Setup scales for each button */
+        speedButtonList.forEachIndexed { i, button ->
+            /* Blend colors based on their position in the array */
+            val buttonRatio = 1 - ((i + 1).toFloat() / speedButtonList.size)
+            val colorBlend = blendColors(buttonColorMin, buttonColorMax, buttonRatio)
+            button.setBackgroundColor(colorBlend)
+
+            /* Setup click action */
+            button.setOnClickListener {
+                setAnimationSpeed(speedValueList[i])
+
+                /* Start animation if stopped playing or does not exist */
+                if (button.animation == null || button.animation.hasEnded()) {
+                    val shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake)
+                    shakeAnim.scaleCurrentDuration(speedValueList[i].toFloat())
+
+                    button.startAnimation(shakeAnim)
+                }
+            }
+        }
+
+        /* Ensure we have the secure settings write permission */
         checkPermissions()
 
         /* Dark theme follows system */
