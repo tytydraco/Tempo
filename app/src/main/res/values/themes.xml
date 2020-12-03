@@ -1,11 +1,9 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme.DayNight" parent="Theme.MaterialComponents">
-        <!-- Customize your theme here. -->
+    <style name="Theme.Tempo.DayNight" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
@@ -21,7 +19,7 @@
     </style>
 
     <!-- Colors for material alert dialogs -->
-    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>
         <item name="buttonBarNegativeButtonStyle">@style/Alert.Button.Neutral</item>
         <item name="buttonBarNeutralButtonStyle">@style/Alert.Button.Neutral</item>
