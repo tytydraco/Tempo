@@ -15,9 +15,6 @@ import androidx.core.content.ContextCompat
 import kotlin.concurrent.fixedRateTimer
 
 class MainActivity : AppCompatActivity() {
-
-    private val adbCommand = "pm grant ${BuildConfig.APPLICATION_ID} android.permission.WRITE_SECURE_SETTINGS"
-
     private lateinit var ancient: Button
     private lateinit var slow: Button
     private lateinit var relaxed: Button
@@ -90,7 +87,7 @@ class MainActivity : AppCompatActivity() {
 
         val dialog = AlertDialog.Builder(this)
             .setTitle("Missing Permissions")
-            .setMessage(getString(R.string.adb_tutorial) + "adb shell $adbCommand")
+            .setMessage(getString(R.string.adb_tutorial) + "adb shell pm grant $packageName android.permission.WRITE_SECURE_SETTINGS")
             .setPositiveButton("Check Again", null)
             .setNeutralButton("Setup ADB", null)
             .setCancelable(false)
