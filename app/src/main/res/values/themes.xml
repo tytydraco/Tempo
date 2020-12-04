@@ -1,36 +1,31 @@
 <resources>
     <style name="Theme.Tempo.DayNight" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="alertDialogTheme">@style/Theme.Tempo.AlertDialog</item>
     </style>
 
-    <style name="ButtonTheme" parent="Widget.MaterialComponents.Button">
-        <item name="android:paddingVertical">40dp</item>
-        <item name="android:layout_marginHorizontal">20dp</item>
-        <item name="android:textSize">20sp</item>
-        <item name="cornerRadius">10dp</item>
-        <item name="elevation">20dp</item>
+    <style name="Theme.Tempo.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:paddingVertical">10dp</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textAlignment">textStart</item>
     </style>
 
     <!-- Colors for material alert dialogs -->
-    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+    <style name="Theme.Tempo.AlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>
         <item name="buttonBarNegativeButtonStyle">@style/Alert.Button.Neutral</item>
         <item name="buttonBarNeutralButtonStyle">@style/Alert.Button.Neutral</item>
     </style>
 
     <style name="Alert.Button.Positive" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
     </style>
 
     <style name="Alert.Button.Neutral" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
     </style>
 
 </resources>

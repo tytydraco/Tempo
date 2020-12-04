@@ -1,51 +1,23 @@
 package com.draco.tempo
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.view.ContextThemeWrapper
 import android.view.animation.AnimationUtils
-import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import kotlin.concurrent.fixedRateTimer
+import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var ancient: Button
-    private lateinit var slow: Button
-    private lateinit var relaxed: Button
-    private lateinit var loose: Button
-    private lateinit var default: Button
-    private lateinit var hasty: Button
-    private lateinit var snappy: Button
-    private lateinit var snappier: Button
-    private lateinit var fast: Button
-    private lateinit var faster: Button
-    private lateinit var instant: Button
-
-    /* Window, Transition, Animator */
-    private val speedValueList = listOf(
-        2.0,
-        1.5,
-        1.2,
-        1.1,
-        1.0,
-        0.9,
-        0.7,
-        0.6,
-        0.5,
-        0.2,
-        0.0
-    )
-
-    private lateinit var speedButtonList: List<Button>
-
-    private val buttonColorMin = Color.parseColor("#7b1fa2")
-    private val buttonColorMax = Color.parseColor("#d32f2f")
+    private lateinit var buttonContainer: LinearLayout
 
     /* Merge two colors by a ratio [0,1] */
     private fun blendColors(color1: Int, color2: Int, ratio: Float): Int {
@@ -56,23 +28,23 @@ class MainActivity : AppCompatActivity() {
         return Color.rgb(r.toInt(), g.toInt(), b.toInt())
     }
 
-    private fun setAnimationSpeed(scale: Double) {
+    private fun setAnimationSpeed(scale: Float) {
         Settings.Global.putFloat(
             contentResolver,
             Settings.Global.WINDOW_ANIMATION_SCALE,
-            scale.toFloat()
+            scale
         )
 
         Settings.Global.putFloat(
             contentResolver,
             Settings.Global.TRANSITION_ANIMATION_SCALE,
-            scale.toFloat()
+            scale
         )
 
         Settings.Global.putFloat(
             contentResolver,
             Settings.Global.ANIMATOR_DURATION_SCALE,
-            scale.toFloat()
+            scale
         )
     }
 
@@ -85,13 +57,15 @@ class MainActivity : AppCompatActivity() {
         if (hasPermissions())
             return
 
+        val adbCommand = "pm grant $packageName android.permission.WRITE_SECURE_SETTINGS"
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Missing Permissions")
-            .setMessage(getString(R.string.adb_tutorial) + "adb shell pm grant $packageName android.permission.WRITE_SECURE_SETTINGS")
-            .setPositiveButton("Check Again", null)
-            .setNeutralButton("Setup ADB", null)
+            .setTitle(getString(R.string.missingPermissions))
+            .setMessage(getString(R.string.adb_tutorial) + "adb shell $adbCommand")
+            .setPositiveButton(getString(R.string.buttonCheckAgain), null)
+            .setNeutralButton(getString(R.string.buttonSetupADB), null)
+            .setNegativeButton(getString(R.string.buttonUseRoot), null)
             .setCancelable(false)
-            .create()
+            .show()
 
         dialog.setOnShowListener {
             /* We don't dismiss on Check Again unless we actually have the permission */
@@ -108,68 +82,48 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(intent)
             }
+
+            /* Try using root permissions */
+            val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+            negativeButton.setOnClickListener {
+                try {
+                    ProcessBuilder("su", "-c", adbCommand).start()
+                    if (hasPermissions())
+                        dialog.dismiss()
+                } catch (_: Exception) {}
+            }
         }
 
         dialog.show()
-
-        /* Check every second if the permission was granted */
-        fixedRateTimer("permissionCheck", false, 0, 1000) {
-            if (hasPermissions()) {
-                dialog.dismiss()
-                this.cancel()
-            }
-        }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        ancient = findViewById(R.id.ancient)
-        slow = findViewById(R.id.slow)
-        relaxed = findViewById(R.id.relaxed)
-        loose = findViewById(R.id.loose)
-        default = findViewById(R.id.default_speed)
-        hasty = findViewById(R.id.hasty)
-        snappy = findViewById(R.id.snappy)
-        snappier = findViewById(R.id.snappier)
-        fast = findViewById(R.id.fast)
-        faster = findViewById(R.id.faster)
-        instant  = findViewById(R.id.instant)
-
-        speedButtonList = listOf(
-            ancient,
-            slow,
-            relaxed,
-            loose,
-            default,
-            hasty,
-            snappy,
-            snappier,
-            fast,
-            faster,
-            instant
-        )
+        buttonContainer = findViewById(R.id.buttons)
 
         /* Setup scales for each button */
-        speedButtonList.forEachIndexed { i, button ->
-            /* Blend colors based on their position in the array */
-            val buttonRatio = 1 - ((i + 1).toFloat() / speedButtonList.size)
-            val colorBlend = blendColors(buttonColorMin, buttonColorMax, buttonRatio)
-            button.setBackgroundColor(colorBlend)
+        for (rawSpeed in 0 .. 100) {
+            val speed = rawSpeed / 100f
+            val button = MaterialButton(ContextThemeWrapper(this, R.style.Theme_Tempo_Button))
 
-            /* Setup click action */
+            val animation = AnimationUtils.loadAnimation(this, R.anim.shake)
+            animation.scaleCurrentDuration(speed)
             button.setOnClickListener {
-                setAnimationSpeed(speedValueList[i])
-
-                /* Start animation if stopped playing or does not exist */
-                if (button.animation == null || button.animation.hasEnded()) {
-                    val shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake)
-                    shakeAnim.scaleCurrentDuration(speedValueList[i].toFloat())
-
-                    button.startAnimation(shakeAnim)
-                }
+                setAnimationSpeed(speed)
+                if (!animation.hasStarted() || animation.hasEnded())
+                    it.startAnimation(animation)
             }
+            button.text = "$rawSpeed%"
+            button.setBackgroundColor(
+                blendColors(
+                    getColor(R.color.buttonMin),
+                    getColor(R.color.buttonMax),
+                    speed
+                )
+            )
+            buttonContainer.addView(button)
         }
 
         /* Ensure we have the secure settings write permission */

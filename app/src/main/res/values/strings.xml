@@ -1,18 +1,6 @@
 <resources>
     <string name="app_name">Tempo</string>
 
-    <string name="ancient">Ancient</string>
-    <string name="slow">Slow</string>
-    <string name="relaxed">Relaxed</string>
-    <string name="loose">Loose</string>
-    <string name="default_speed">Default</string>
-    <string name="hasty">Hasty</string>
-    <string name="snappy">Snappy</string>
-    <string name="snappier">Snappier</string>
-    <string name="fast">Fast</string>
-    <string name="faster">Faster</string>
-    <string name="instant">Instant</string>
-
     <string name="adb_tutorial">
 "This app needs a special permission to set your device animation scales that can only be granted using a computer. This is a one time procedure.
 
@@ -22,4 +10,9 @@ Once ADB is setup, connect the device to a computer and run the following comman
 
 "
     </string>
+
+    <string name="missingPermissions">Missing Permissions</string>
+    <string name="buttonCheckAgain">Check Again</string>
+    <string name="buttonSetupADB">Setup ADB</string>
+    <string name="buttonUseRoot">Use Root</string>
 </resources>
