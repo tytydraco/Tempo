@@ -2,8 +2,8 @@
     <style name="Theme.Tempo.DayNight" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
-        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="alertDialogTheme">@style/Theme.Tempo.AlertDialog</item>
     </style>
 
