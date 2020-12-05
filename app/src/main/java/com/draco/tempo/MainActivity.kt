@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             .setNeutralButton(getString(R.string.buttonSetupADB), null)
             .setNegativeButton(getString(R.string.buttonUseRoot), null)
             .setCancelable(false)
-            .show()
+            .create()
 
         dialog.setOnShowListener {
             /* We don't dismiss on Check Again unless we actually have the permission */
