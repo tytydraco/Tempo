@@ -1,60 +1,25 @@
-package com.draco.tempo
+package com.draco.tempo.views
 
-import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.view.ContextThemeWrapper
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import com.draco.tempo.R
+import com.draco.tempo.viewmodels.MainActivityViewModel
 import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel: MainActivityViewModel by viewModels()
+
     private lateinit var buttonContainer: LinearLayout
 
-    /* Merge two colors by a ratio [0,1] */
-    private fun blendColors(color1: Int, color2: Int, ratio: Float): Int {
-        val inverseRatio = 1f - ratio
-        val r = Color.red(color1) * ratio + Color.red(color2) * inverseRatio
-        val g = Color.green(color1) * ratio + Color.green(color2) * inverseRatio
-        val b = Color.blue(color1) * ratio + Color.blue(color2) * inverseRatio
-        return Color.rgb(r.toInt(), g.toInt(), b.toInt())
-    }
-
-    private fun setAnimationSpeed(scale: Float) {
-        Settings.Global.putFloat(
-            contentResolver,
-            Settings.Global.WINDOW_ANIMATION_SCALE,
-            scale
-        )
-
-        Settings.Global.putFloat(
-            contentResolver,
-            Settings.Global.TRANSITION_ANIMATION_SCALE,
-            scale
-        )
-
-        Settings.Global.putFloat(
-            contentResolver,
-            Settings.Global.ANIMATOR_DURATION_SCALE,
-            scale
-        )
-    }
-
-    private fun hasPermissions(): Boolean {
-        val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_SECURE_SETTINGS)
-        return permissionCheck == PackageManager.PERMISSION_GRANTED
-    }
-
     private fun checkPermissions() {
-        if (hasPermissions())
+        if (viewModel.hasPermissions())
             return
 
         val adbCommand = "pm grant $packageName android.permission.WRITE_SECURE_SETTINGS"
@@ -69,26 +34,23 @@ class MainActivity : AppCompatActivity() {
 
         dialog.setOnShowListener {
             /* We don't dismiss on Check Again unless we actually have the permission */
-            val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            positiveButton.setOnClickListener {
-                if (hasPermissions())
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                if (viewModel.hasPermissions())
                     dialog.dismiss()
             }
 
             /* Open tutorial but do not dismiss until user presses Check Again */
-            val neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL)
-            neutralButton.setOnClickListener {
+            dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
                 val uri = Uri.parse("https://www.xda-developers.com/install-adb-windows-macos-linux/")
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(intent)
             }
 
             /* Try using root permissions */
-            val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-            negativeButton.setOnClickListener {
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener {
                 try {
                     ProcessBuilder("su", "-c", adbCommand).start()
-                    if (hasPermissions())
+                    if (viewModel.hasPermissions())
                         dialog.dismiss()
                 } catch (_: Exception) {}
             }
@@ -97,7 +59,6 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -111,18 +72,12 @@ class MainActivity : AppCompatActivity() {
             val animation = AnimationUtils.loadAnimation(this, R.anim.shake)
             animation.scaleCurrentDuration(speed)
             button.setOnClickListener {
-                setAnimationSpeed(speed)
+                viewModel.setAnimationSpeed(speed)
                 if (!animation.hasStarted() || animation.hasEnded())
                     it.startAnimation(animation)
             }
-            button.text = "$rawSpeed%"
-            button.setBackgroundColor(
-                blendColors(
-                    getColor(R.color.buttonMin),
-                    getColor(R.color.buttonMax),
-                    speed
-                )
-            )
+            button.text = viewModel.formatSpeedText(rawSpeed)
+            button.setBackgroundColor(viewModel.blendColors(speed))
             buttonContainer.addView(button)
         }
 
