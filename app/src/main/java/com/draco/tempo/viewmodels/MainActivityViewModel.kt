@@ -10,10 +10,8 @@ import androidx.lifecycle.AndroidViewModel
 import com.draco.tempo.R
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
-    private val context = getApplication<Application>().applicationContext
-
-    private val buttonMinColor = context.getColor(R.color.buttonMin)
-    private val buttonMaxColor = context.getColor(R.color.buttonMax)
+    private val buttonMinColor = ContextCompat.getColor(application.applicationContext, R.color.buttonMin)
+    private val buttonMaxColor = ContextCompat.getColor(application.applicationContext, R.color.buttonMax)
 
     /* Merge two colors by a ratio [0,1] */
     fun blendColors(ratio: Float): Int {
@@ -27,11 +25,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun formatSpeedText(speed: Int) = "$speed%"
 
     fun hasPermissions(): Boolean {
+        val context = getApplication<Application>().applicationContext
         val permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)
         return permissionCheck == PackageManager.PERMISSION_GRANTED
     }
 
     fun setAnimationSpeed(scale: Float) {
+        val context = getApplication<Application>().applicationContext
         Settings.Global.putFloat(
             context.contentResolver,
             Settings.Global.WINDOW_ANIMATION_SCALE,
